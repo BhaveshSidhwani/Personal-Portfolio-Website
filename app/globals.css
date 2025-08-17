@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent-500: #17b1e5;
+  --accent-600: #14a1d0;
+  --accent-700: #0f86ad;
+  --bg: #fafafa;
+  --panel: #f7f8fa;
+  --text: #0f1720;
+  --muted: #5c6673;
+  --border: #e6e8ec;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+[data-theme="dark"] {
+  --accent-500: #19b8ee;
+  --accent-600: #1ac3fd;
+  --accent-700: #1296c4;
+  --bg: #0b0f14;
+  --panel: #121821;
+  --text: #e8eef5;
+  --muted: #94a3b8;
+  --border: #283241;
+  --success: #22d36a;
+  --warning: #fab216;
+  --error: #ff5c5c;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: theme("fontFamily.sans");
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.focus-ring {
+  outline: 2px solid #7ad7f4;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hover-elevate:hover {
+    box-shadow: theme("boxShadow.z2");
+    transform: translateY(-2px);
+    transition: box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+}

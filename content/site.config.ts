@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Bhavesh Sidhwani",
+  name: "Your Name",
   valueProp:
     "Value proposition placeholder text ~ 90–110 chars for layout realism.",
   email: "you@example.com",

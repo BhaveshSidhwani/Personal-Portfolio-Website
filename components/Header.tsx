@@ -20,7 +20,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-[--border] bg-[--bg]/95 shadow-z1 backdrop-blur">
       <div className="container flex h-[72px] items-center justify-between gap-4">
         <Link href="/" className="font-bold text-[--text]" aria-label="Home">
-          Bhavesh Sidhwani
+          Your Name
         </Link>
 
         <nav className="hidden gap-8 md:flex">

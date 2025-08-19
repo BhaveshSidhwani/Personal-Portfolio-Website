@@ -4,7 +4,7 @@ export default function Footer() {
     // mt-auto is just redundancy now, but harmless; layout flex handles it.
     <footer className="mt-24 border-t border-[--border] bg-[--bg]">
       <div className="container flex h-[60px] items-center justify-between text-sm text-[--muted]">
-        <span>© {year} Bhavesh Sidhwani</span>
+        <span>© {year} Your Name</span>
         <div className="flex items-center gap-4">
           <a
             href="https://github.com/"
@@ -22,11 +22,7 @@ export default function Footer() {
           >
             LinkedIn
           </a>
-          <a
-            href="/Bhavesh_Sidhwani_CV.pdf"
-            className="text-accent-500"
-            download
-          >
+          <a href="/Your_CV.pdf" className="text-accent-500" download>
             Download CV
           </a>
         </div>

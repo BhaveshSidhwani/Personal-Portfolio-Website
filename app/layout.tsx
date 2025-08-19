@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "Bhavesh Sidhwani",
-    template: "%s — Bhavesh Sidhwani",
+    default: "Your Name",
+    template: "%s — Your Name",
   },
   description:
     "Portfolio — placeholder description (140–160 chars) for SEO and link previews.",

@@ -9,10 +9,10 @@ export default function HomePage() {
       {/* Hero */}
       <section className="grid grid-cols-1 items-center gap-8 py-8 md:grid-cols-2">
         <div>
-          <h1 className="text-5xl font-bold">Your Name</h1>
+          <h1 className="text-5xl font-bold">Bhavesh Sidhwani</h1>
           <p className="mt-2 text-lg text-[--muted]">
-            Value proposition placeholder text ~ 90–110 chars for layout realism
-            across breakpoints.
+            Software Engineer with strong background in full-stack, AI and
+            cloud.
           </p>
           <div className="mt-4 flex gap-3">
             <Button>View Projects</Button>
@@ -36,14 +36,27 @@ export default function HomePage() {
       <section className="py-4">
         <div className="grid gap-6 md:grid-cols-2">
           <Card
-            title="Project A"
-            impact="Outcome placeholder: metrics ~ 60–80 chars, consistent height for layout fidelity."
+            title="Cloud Observability and Insights"
+            impact="Go-based infrastructure monitoring and insights platform with AI-driven management."
+            tags={[
+              "Go",
+              "Python",
+              "RAG",
+              "OpenAI",
+              "AzureAI",
+              "Gemini",
+              "Docker",
+              "AWS",
+              "GCP",
+              "Azure",
+            ]}
           >
             <div className="mt-4 text-accent-500">Read case study →</div>
           </Card>
           <Card
-            title="Project B"
-            impact="Outcome placeholder: metrics ~ 60–80 chars, consistent height for layout fidelity."
+            title="ASL Recognition"
+            impact="Real-time American Sign Language recognition using CNN and transfer learning."
+            tags={["Python", "TensorFlow", "Keras", "PyTorch", "CV2"]}
           >
             <div className="mt-4 text-accent-500">Read case study →</div>
           </Card>
@@ -57,7 +70,7 @@ export default function HomePage() {
           {[
             "AI Engineering",
             "RAG",
-            "Embeddings",
+            "Java",
             "Go",
             "Python",
             "Next.js",
@@ -66,25 +79,6 @@ export default function HomePage() {
           ].map((x) => (
             <Chip key={x}>{x}</Chip>
           ))}
-        </div>
-      </section>
-
-      {/* About teaser */}
-      <section className="py-6">
-        <SectionHeader title="About Teaser" />
-        <p className="text-sm text-[--muted]">
-          Two‑sentence placeholder ~ 140–180 chars to mimic final copy length.
-        </p>
-        <div className="mt-2 text-accent-500">Read more →</div>
-      </section>
-
-      {/* CTA strip */}
-      <section className="mt-6 rounded-lg border border-[--border] bg-[--panel] p-4">
-        <div className="flex items-center justify-between">
-          <div className="text-sm font-medium">
-            Call‑to‑action placeholder ~ 45–65 chars
-          </div>
-          <Button>Contact</Button>
         </div>
       </section>
     </>

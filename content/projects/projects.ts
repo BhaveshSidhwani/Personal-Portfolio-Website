@@ -20,96 +20,58 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "project-a",
-    title: "Project A",
+    slug: "cloud-observability-and-insights",
+    title: "Cloud Observability and Insights",
     impactLine:
-      "Outcome placeholder: metrics ~ 60–80 chars, consistent height for layout fidelity.",
-    tags: ["AI/ML", "RAG", "Python", "Next.js"],
-    timeframe: "2024",
-    role: "Software & AI Engineer",
-    metrics: ["Metric A", "Metric B", "Metric C"],
+      "Go-based infrastructure monitoring and insights platform with AI-driven management.",
+    tags: [
+      "Go",
+      "Python",
+      "RAG",
+      "OpenAI",
+      "AzureAI",
+      "Gemini",
+      "Docker",
+      "AWS",
+      "GCP",
+      "Azure",
+    ],
+    timeframe: "Oct 2024 - Jun 2025",
+    role: "Software Engineer",
+    metrics: [],
     sections: [
       {
-        id: "context",
-        title: "Context",
-        type: "paragraph",
-        content:
-          "Paragraph placeholder ~ 220–280 chars for realistic reading width across breakpoints.",
-      },
-      {
-        id: "problem",
-        title: "Problem",
+        id: "description",
+        title: "Description",
         type: "list",
         items: [
-          "Bullet placeholder 60–80 chars",
-          "Bullet placeholder 60–80 chars",
-        ],
-      },
-      {
-        id: "approach",
-        title: "Approach",
-        type: "paragraph",
-        content:
-          "Paragraph placeholder ~ 280–360 chars to describe decisions and tradeoffs.",
-      },
-      { id: "diagram", title: "Diagram", type: "image", aspect: "3:2" },
-      {
-        id: "outcome",
-        title: "Outcome",
-        type: "paragraph",
-        content: "One-sentence impact placeholder ~ 90–120 chars.",
-      },
-      {
-        id: "next",
-        title: "What I’d Do Next",
-        type: "list",
-        items: [
-          "Next step 60–80 chars",
-          "Next step 60–80 chars",
-          "Next step 60–80 chars",
+          "Built a RAG pipeline powering 7 AI agents to facilitate infrastructure security, management, and compliance.",
+          "Developed infra-scanner Go service, transforming observability data into a knowledge graph persisted on GraphDB.",
+          "Integrated a vector database for dynamic Cypher query generation for precise sub-graph context retrieval, reducing token usage by 75%.",
+          "Designed a continuous evaluation pipeline for RAG agents using RAGAS to prevent model drift and ensure long-term relevance.",
+          "Engineered a critique feedback agent in a dual-LLM setting, boosting relevancy evaluation score by 15%.",
         ],
       },
     ],
   },
   {
-    slug: "project-b",
-    title: "Project B",
+    slug: "asl-recognition",
+    title: "ASL Recognition",
     impactLine:
-      "Outcome placeholder: metrics ~ 60–80 chars, consistent height for layout fidelity.",
-    tags: ["AI/ML", "Python"],
-    timeframe: "2023",
-    role: "Software & AI Engineer",
-    metrics: ["Metric A", "Metric B"],
+      "Real-time American Sign Language recognition using CNN and transfer learning.",
+    tags: ["Python", "TensorFlow", "Keras", "PyTorch", "CV2"],
+    timeframe: "May 2024",
+    role: "Software Engineer",
+    metrics: [],
     sections: [
       {
-        id: "context",
-        title: "Context",
-        type: "paragraph",
-        content:
-          "Paragraph placeholder ~ 220–280 chars for realistic reading width across breakpoints.",
-      },
-      {
-        id: "problem",
-        title: "Problem",
+        id: "description",
+        title: "Description",
         type: "list",
         items: [
-          "Bullet placeholder 60–80 chars",
-          "Bullet placeholder 60–80 chars",
+          "Trained 4 CNN models with over 196,000 image dataset and classifying with over 95% accuracy.",
+          "Streamlined ASL prediction by integrating CNN models with live video stream.",
         ],
-      },
-      {
-        id: "approach",
-        title: "Approach",
-        type: "paragraph",
-        content:
-          "Paragraph placeholder ~ 280–360 chars to describe decisions and tradeoffs.",
-      },
-      { id: "diagram", title: "Diagram", type: "image", aspect: "3:2" },
-      {
-        id: "outcome",
-        title: "Outcome",
-        type: "paragraph",
-        content: "One-sentence impact placeholder ~ 90–120 chars.",
       },
     ],
   },

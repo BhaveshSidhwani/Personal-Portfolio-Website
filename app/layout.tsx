@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "Your Name",
-    template: "%s — Your Name",
+    default: "Bhavesh Sidhwani",
+    template: "%s — Bhavesh Sidhwani",
   },
   description:
     "Portfolio — placeholder description (140–160 chars) for SEO and link previews.",
@@ -28,7 +28,7 @@ export default function RootLayout({
         </a>
         <div className="flex min-h-screen flex-col bg-[--bg] text-[--text]">
           <Header />
-          <main id="main" className="container py-8">
+          <main id="main" className="container flex-1 py-8">
             {children}
           </main>
           <Footer />

@@ -1,13 +1,20 @@
-import ContactForm from '@/components/ContactForm';
-import SectionHeader from '@/components/SectionHeader';
+import ContactForm from "@/components/ContactForm";
+import SectionHeader from "@/components/SectionHeader";
 
 export default function ContactPage() {
   return (
     <div className="space-y-4">
       <SectionHeader title="Contact" />
-      <p className="text-[--muted]">Intro line placeholder ~ 60–90 chars to set expectations.</p>
+      <p className="text-[--error]">
+        Contact form is currently under development. If you need to reach me,
+        please email{" "}
+        <a className="text-accent-500" href="mailto:sidhwanibhavesh@gmail.com">
+          sidhwanibhavesh@gmail.com
+        </a>
+        .
+        <br />
+      </p>
       <ContactForm />
-      <div className="text-accent-500">Prefer email? yourname@domain.tld • GitHub • LinkedIn</div>
     </div>
   );
 }

@@ -2,6 +2,8 @@ import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Chip from "@/components/Chip";
 import SectionHeader from "@/components/SectionHeader";
+import { projects } from "@/content/projects/projects";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -35,31 +37,21 @@ export default function HomePage() {
       {/* Highlights */}
       <section className="py-4">
         <div className="grid gap-6 md:grid-cols-2">
-          <Card
-            title="Cloud Observability and Insights"
-            impact="Go-based infrastructure monitoring and insights platform with AI-driven management."
-            tags={[
-              "Go",
-              "Python",
-              "RAG",
-              "OpenAI",
-              "AzureAI",
-              "Gemini",
-              "Docker",
-              "AWS",
-              "GCP",
-              "Azure",
-            ]}
-          >
-            <div className="mt-4 text-accent-500">Read case study →</div>
-          </Card>
-          <Card
-            title="ASL Recognition"
-            impact="Real-time American Sign Language recognition using CNN and transfer learning."
-            tags={["Python", "TensorFlow", "Keras", "PyTorch", "CV2"]}
-          >
-            <div className="mt-4 text-accent-500">Read case study →</div>
-          </Card>
+          {projects.slice(0, 2).map((p) => (
+            <Card
+              key={p.slug}
+              title={p.title}
+              impact={p.impactLine}
+              tags={p.tags}
+            >
+              <Link
+                className="mt-4 inline-block text-accent-500"
+                href={`/projects/${p.slug}`}
+              >
+                Read More →
+              </Link>
+            </Card>
+          ))}
         </div>
       </section>
 

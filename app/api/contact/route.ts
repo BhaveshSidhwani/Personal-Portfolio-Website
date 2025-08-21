@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     if (!body?.email || !body?.message) {
       return NextResponse.json({ ok: false }, { status: 400 });
     }
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: false }, { status: 501 });
   } catch (e) {
     return NextResponse.json({ ok: false }, { status: 500 });
   }

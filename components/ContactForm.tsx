@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [statusCode, setStatusCode] = useState<number | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,6 +27,7 @@ export default function ContactForm() {
       });
       if (res.ok) setStatus("success");
       else setStatus("error");
+      setStatusCode(res.status);
     } catch {
       setStatus("error");
     }
@@ -41,6 +43,21 @@ export default function ContactForm() {
           </a>
           .
         </p>
+      </div>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <div className="rounded-lg border border-red-500 bg-white p-6">
+        <p className="text-red-500">
+          Oops! Something went wrong. Please try again later.
+        </p>
+        {statusCode && (
+          <p className="text-red-500">
+            Error code: <strong>{statusCode}</strong>
+          </p>
+        )}
       </div>
     );
   }

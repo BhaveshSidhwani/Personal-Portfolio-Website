@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="min-h-dvh flex min-w-[320px] flex-col bg-[--bg] text-[--text]">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus-ring absolute left-2 top-2 rounded bg-white px-2 py-1"

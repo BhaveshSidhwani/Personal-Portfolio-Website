@@ -16,11 +16,11 @@ export default function HomePage() {
             Software Engineer with strong background in full-stack, AI and
             cloud.
           </p>
-          <div className="mt-4 flex gap-3">
+          <div className="mt-16 flex gap-3">
             <Button>View Projects</Button>
             <Button variant="secondary">Contact</Button>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-16 flex flex-wrap gap-2">
             <Chip>AI Engineering</Chip>
             <Chip>RAG</Chip>
             <Chip>Full‑stack</Chip>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Button from "./Button";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -112,9 +113,7 @@ export default function ContactForm() {
         tabIndex={-1}
         autoComplete="off"
       />
-      <button className="h-11 rounded-md bg-[--accent-500] px-4 font-semibold text-white hover:bg-[--accent-600]">
-        Send message
-      </button>
+      <Button>Send message</Button>
     </form>
   );
 }

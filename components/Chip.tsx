@@ -13,7 +13,7 @@ export default function Chip({
 }: Props) {
   const base = "inline-flex h-7 items-center rounded-full px-3 text-sm";
   const variants = {
-    neutral: "border border-[--border] bg-white text-[--text]",
+    neutral: "border border-[--border] bg-[--panel-chip] text-black",
     accent: "bg-[--accent-500] text-white",
     outline: "border border-[--accent-500] text-[--text]",
   } as const;

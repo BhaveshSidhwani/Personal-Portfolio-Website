@@ -49,12 +49,12 @@ export default function ContactForm() {
 
   if (status === "error") {
     return (
-      <div className="rounded-lg border border-red-500 bg-white p-6">
-        <p className="text-red-500">
+      <div className="rounded-lg border border-red-500 bg-[--panel] p-6">
+        <p className="text-[--error]">
           Oops! Something went wrong. Please try again later.
         </p>
         {statusCode && (
-          <p className="text-red-500">
+          <p className="text-[--error]">
             Error code: <strong>{statusCode}</strong>
           </p>
         )}
@@ -65,7 +65,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-lg border border-[--border] bg-white p-6 space-y-4"
+      className="rounded-lg border border-[--border] bg-[--panel] p-6 space-y-4"
     >
       <div className="grid gap-4 md:grid-cols-2">
         <div>
@@ -73,7 +73,7 @@ export default function ContactForm() {
           <input
             name="name"
             required
-            className="mt-1 h-11 w-full rounded-md border border-[--border] bg-white px-3"
+            className="mt-1 h-11 w-full rounded-md border border-[--border] bg-[--panel] px-3"
           />
         </div>
         <div>
@@ -82,7 +82,7 @@ export default function ContactForm() {
             name="email"
             type="email"
             required
-            className="mt-1 h-11 w-full rounded-md border border-[--border] bg-white px-3"
+            className="mt-1 h-11 w-full rounded-md border border-[--border] bg-[--panel] px-3"
           />
         </div>
         <div className="md:col-span-2">
@@ -91,7 +91,7 @@ export default function ContactForm() {
           </label>
           <input
             name="company"
-            className="mt-1 h-11 w-full rounded-md border border-[--border] bg-white px-3"
+            className="mt-1 h-11 w-full rounded-md border border-[--border] bg-[--panel] px-3"
           />
         </div>
         <div className="md:col-span-2">
@@ -100,7 +100,7 @@ export default function ContactForm() {
             name="message"
             rows={5}
             required
-            className="mt-1 w-full rounded-md border border-[--border] bg-white p-3"
+            className="mt-1 w-full rounded-md border border-[--border] bg-[--panel] p-3"
           />
         </div>
       </div>

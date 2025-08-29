@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Button from "@/components/Button";
 import { usePathname } from "next/navigation";
-import { useTheme } from "@/lib/theme";
 import type { Route } from "next";
 import clsx from "clsx";
 
@@ -14,7 +13,6 @@ const NAV: { href: Route; label: string }[] = [
 
 export default function Header() {
   const pathname = usePathname();
-  const { theme, toggle } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 border-b border-[--border] bg-[--bg]/95 shadow-z1 backdrop-blur">
@@ -43,15 +41,6 @@ export default function Header() {
           <Link href="/contact" className="hidden md:inline-flex">
             <Button>Contact</Button>
           </Link>
-
-          <Button
-            variant="ghost"
-            aria-label="Toggle dark mode"
-            onClick={toggle}
-            title={theme === "dark" ? "Switch to light" : "Switch to dark"}
-          >
-            {theme === "dark" ? "🌙" : "☀️"}
-          </Button>
         </div>
       </div>
     </header>

@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
-import Button from "@/components/Button";
 import { usePathname } from "next/navigation";
 import type { Route } from "next";
 import clsx from "clsx";
+import { IoLogoGithub, IoLogoLinkedin } from "react-icons/io5";
 
 const NAV: { href: Route; label: string }[] = [
   { href: "/projects", label: "Projects" },
@@ -49,10 +49,23 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-6">
           {/* Style a Link as a button (no asChild) */}
-          <Link href="/contact" className="hidden md:inline-flex">
-            <Button>Contact</Button>
+          <Link
+            href="https://www.github.com/BhaveshSidhwani"
+            className="hidden md:inline-flex"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <IoLogoGithub className="h-6 w-6 text-[--muted] hover:text-[--text] transition-colors" />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/in/bhavesh-sidhwani/"
+            className="hidden md:inline-flex"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <IoLogoLinkedin className="h-6 w-6 text-[--muted] hover:text-[--text] transition-colors" />
           </Link>
         </div>
       </div>

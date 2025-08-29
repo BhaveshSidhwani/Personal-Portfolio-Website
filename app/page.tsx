@@ -32,7 +32,7 @@ export default function HomePage() {
           <div className="sr-only">Headshot</div>
           <Image
             src={headshot}
-            alt="Headshot"
+            alt="Bhavesh Sidhwani - software engineer headshot"
             width={240}
             height={240}
             className="aspect-auto h-60 w-60 rounded-full border-2 border-[--border] bg-[--panel] opacity-95 brightness-95"

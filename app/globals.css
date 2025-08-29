@@ -2,27 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light */
-:root {
-  --line: #d5e4ea; /* timeline line */
-  --on-accent: #ffffff;
-
-  --accent-500: #17b1e5;
-  --accent-600: #14a1d0;
-  --accent-700: #0f86ad;
-  --bg: #fafafa;
-  --panel: #f7f8fa;
-  --panel-chip: #cccccc;
-  --text: #0f1720;
-  --muted: #5c6673;
-  --border: #283241;
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --error: #ef4444;
-}
-
 /* Dark */
-[data-theme="dark"] {
+:root {
   --line: #1f2a3a;
   --on-accent: #f8fefe;
 
@@ -38,6 +19,25 @@
   --success: #22d36a;
   --warning: #fab216;
   --error: #ff5c5c;
+}
+
+/* Light */
+[data-theme="light"] {
+  --line: #d5e4ea; /* timeline line */
+  --on-accent: #ffffff;
+
+  --accent-500: #17b1e5;
+  --accent-600: #14a1d0;
+  --accent-700: #0f86ad;
+  --bg: #fafafa;
+  --panel: #f7f8fa;
+  --panel-chip: #cccccc;
+  --text: #0f1720;
+  --muted: #5c6673;
+  --border: #283241;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
 }
 
 html,

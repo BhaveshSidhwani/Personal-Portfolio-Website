@@ -3,7 +3,9 @@ import Card from "@/components/Card";
 import Chip from "@/components/Chip";
 import SectionHeader from "@/components/SectionHeader";
 import { projects } from "@/content/projects/projects";
+import Image from "next/image";
 import Link from "next/link";
+import headshot from "../content/images/Headshot.jpeg";
 
 export default function HomePage() {
   return (
@@ -27,9 +29,13 @@ export default function HomePage() {
           </div>
         </div>
         <div className="flex justify-center md:justify-end">
-          <div
-            className="aspect-square h-60 w-60 rounded-full border border-[--border] bg-[--panel]"
-            aria-label="Headshot placeholder"
+          <div className="sr-only">Headshot</div>
+          <Image
+            src={headshot}
+            alt="Bhavesh Sidhwani - software engineer headshot"
+            width={240}
+            height={240}
+            className="aspect-auto h-60 w-60 rounded-full border-2 border-[--border] bg-[--panel] opacity-95 brightness-95"
           />
         </div>
       </section>

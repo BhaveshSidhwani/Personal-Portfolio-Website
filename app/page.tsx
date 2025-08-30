@@ -19,8 +19,22 @@ export default function HomePage() {
             cloud.
           </p>
           <div className="mt-16 flex gap-3">
-            <Button>View Projects</Button>
-            <Button variant="secondary">Contact</Button>
+            <Button>
+              <Link href="/projects">View Projects</Link>
+            </Button>
+            <Button variant="secondary">
+              <Link href="/contact">Contact</Link>
+            </Button>
+            <Button variant="secondary">
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://g7xo711snnm3mcqu.public.blob.vercel-storage.com/Resume/Bhavesh%20Sidhwani_Resume.pdf"
+                download
+              >
+                Resume
+              </Link>
+            </Button>
           </div>
           <div className="mt-16 flex flex-wrap gap-2">
             <Chip>AI Engineering</Chip>

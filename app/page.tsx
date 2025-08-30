@@ -12,7 +12,17 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="grid grid-cols-1 items-center gap-8 py-8 md:grid-cols-2">
-        <div>
+        <div className="flex justify-center md:justify-end order-1 md:order-2">
+          <div className="sr-only">Headshot</div>
+          <Image
+            src={headshot}
+            alt="Bhavesh Sidhwani - software engineer headshot"
+            width={240}
+            height={240}
+            className="aspect-auto h-60 w-60 rounded-full border-2 border-[--border] bg-[--panel] opacity-95 brightness-95"
+          />
+        </div>
+        <div className="order-2 md:order-1">
           <h1 className="text-5xl font-bold">Bhavesh Sidhwani</h1>
           <p className="mt-2 text-lg text-[--muted]">
             Software Engineer with strong background in full-stack, AI and
@@ -41,16 +51,6 @@ export default function HomePage() {
             <Chip>RAG</Chip>
             <Chip>Full‑stack</Chip>
           </div>
-        </div>
-        <div className="flex justify-center md:justify-end">
-          <div className="sr-only">Headshot</div>
-          <Image
-            src={headshot}
-            alt="Bhavesh Sidhwani - software engineer headshot"
-            width={240}
-            height={240}
-            className="aspect-auto h-60 w-60 rounded-full border-2 border-[--border] bg-[--panel] opacity-95 brightness-95"
-          />
         </div>
       </section>
 

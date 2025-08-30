@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -6,23 +8,7 @@ export default function Footer() {
       <div className="container flex h-[60px] items-center justify-between text-sm text-[--muted]">
         <span>© {year} Bhavesh Sidhwani</span>
         <div className="flex items-center gap-10">
-          <a
-            href="https://www.github.com/BhaveshSidhwani"
-            className="text-accent-500"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/bhavesh-sidhwani/"
-            className="text-accent-500"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a
+          <Link
             target="_blank"
             rel="noopener noreferrer"
             href="https://g7xo711snnm3mcqu.public.blob.vercel-storage.com/Resume/Bhavesh%20Sidhwani_Resume.pdf"
@@ -30,7 +16,7 @@ export default function Footer() {
             download
           >
             Resume
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

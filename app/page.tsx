@@ -20,6 +20,7 @@ export default function HomePage() {
             width={240}
             height={240}
             className="aspect-auto h-60 w-60 rounded-full border-2 border-[--border] bg-[--panel] opacity-95 brightness-95"
+            priority={true}
           />
         </div>
         <div className="order-2 md:order-1">

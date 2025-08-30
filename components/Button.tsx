@@ -26,9 +26,9 @@ export default function Button({
 
   // Variant styles
   const variants = {
-    primary: "bg-[--accent-500] text-white hover:bg-[--accent-600]",
+    primary: "bg-[--accent-500] text-white hover:bg-[--accent-700]",
     secondary:
-      "bg-[--panel] text-[--text] border border-[--border] hover:bg-white",
+      "bg-[--panel] text-[--text] border border-[--border] hover:bg-white hover:text-gray-700",
     ghost: "bg-transparent text-[--text] hover:bg-[--panel]",
   } as const;
 

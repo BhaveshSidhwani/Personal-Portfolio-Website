@@ -8,6 +8,13 @@ import Link from "next/link";
 import headshot from "../content/images/Headshot.jpeg";
 
 export default function HomePage() {
+  const skills_snapshot = [
+    "Full-Stack Development",
+    "AI Driven Development",
+    "Agentic AI",
+    "Context Engineering",
+  ];
+
   return (
     <>
       {/* Hero */}
@@ -30,27 +37,20 @@ export default function HomePage() {
             cloud.
           </p>
           <div className="mt-16 flex gap-3">
-            <Button>
-              <Link href="/projects">View Projects</Link>
-            </Button>
-            <Button variant="secondary">
-              <Link href="/contact">Contact</Link>
-            </Button>
-            <Button variant="secondary">
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://g7xo711snnm3mcqu.public.blob.vercel-storage.com/Resume/Bhavesh%20Sidhwani_Resume.pdf"
-                download
-              >
-                Resume
-              </Link>
-            </Button>
-          </div>
-          <div className="mt-16 flex flex-wrap gap-2">
-            <Chip>AI Engineering</Chip>
-            <Chip>RAG</Chip>
-            <Chip>Full‑stack</Chip>
+            <Link href="/projects">
+              <Button>View Projects</Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="secondary">Contact</Button>
+            </Link>
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://g7xo711snnm3mcqu.public.blob.vercel-storage.com/Resume/Bhavesh%20Sidhwani_Resume.pdf"
+              download
+            >
+              <Button variant="secondary">Resume</Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -80,17 +80,10 @@ export default function HomePage() {
       <section className="py-6">
         <SectionHeader title="Skills Snapshot" />
         <div className="flex flex-wrap gap-2">
-          {[
-            "AI Engineering",
-            "RAG",
-            "Java",
-            "Go",
-            "Python",
-            "Next.js",
-            "Docker",
-            "CI/CD",
-          ].map((x) => (
-            <Chip key={x}>{x}</Chip>
+          {skills_snapshot.map((x) => (
+            <Chip variant="outline" key={x}>
+              {x}
+            </Chip>
           ))}
         </div>
       </section>

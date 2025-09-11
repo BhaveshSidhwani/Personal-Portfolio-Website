@@ -8,27 +8,18 @@ import Link from "next/link";
 import headshot from "../content/images/Headshot.jpeg";
 
 export default function HomePage() {
+  const skills_snapshot = [
+    "Full-Stack Development",
+    "AI Driven Development",
+    "Agentic AI",
+    "Context Engineering",
+  ];
+
   return (
     <>
       {/* Hero */}
       <section className="grid grid-cols-1 items-center gap-8 py-8 md:grid-cols-2">
-        <div>
-          <h1 className="text-5xl font-bold">Bhavesh Sidhwani</h1>
-          <p className="mt-2 text-lg text-[--muted]">
-            Software Engineer with strong background in full-stack, AI and
-            cloud.
-          </p>
-          <div className="mt-16 flex gap-3">
-            <Button>View Projects</Button>
-            <Button variant="secondary">Contact</Button>
-          </div>
-          <div className="mt-16 flex flex-wrap gap-2">
-            <Chip>AI Engineering</Chip>
-            <Chip>RAG</Chip>
-            <Chip>Full‑stack</Chip>
-          </div>
-        </div>
-        <div className="flex justify-center md:justify-end">
+        <div className="flex justify-center md:justify-end order-1 md:order-2">
           <div className="sr-only">Headshot</div>
           <Image
             src={headshot}
@@ -36,7 +27,31 @@ export default function HomePage() {
             width={240}
             height={240}
             className="aspect-auto h-60 w-60 rounded-full border-2 border-[--border] bg-[--panel] opacity-95 brightness-95"
+            priority={true}
           />
+        </div>
+        <div className="order-2 md:order-1">
+          <h1 className="text-5xl font-bold">Bhavesh Sidhwani</h1>
+          <p className="mt-2 text-lg text-[--muted]">
+            Software Engineer with strong background in full-stack, AI and
+            cloud.
+          </p>
+          <div className="mt-16 flex gap-3">
+            <Link href="/projects">
+              <Button>View Projects</Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="secondary">Contact</Button>
+            </Link>
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://g7xo711snnm3mcqu.public.blob.vercel-storage.com/Resume/Bhavesh%20Sidhwani_Resume.pdf"
+              download
+            >
+              <Button variant="secondary">Resume</Button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -65,17 +80,10 @@ export default function HomePage() {
       <section className="py-6">
         <SectionHeader title="Skills Snapshot" />
         <div className="flex flex-wrap gap-2">
-          {[
-            "AI Engineering",
-            "RAG",
-            "Java",
-            "Go",
-            "Python",
-            "Next.js",
-            "Docker",
-            "CI/CD",
-          ].map((x) => (
-            <Chip key={x}>{x}</Chip>
+          {skills_snapshot.map((x) => (
+            <Chip variant="outline" key={x}>
+              {x}
+            </Chip>
           ))}
         </div>
       </section>

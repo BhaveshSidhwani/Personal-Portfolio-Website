@@ -63,7 +63,7 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .hover-elevate:hover {
     box-shadow: theme("boxShadow.z2");
-    transform: translateY(-2px);
+    transform: translateY(-6px);
     transition: box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
       transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   }

@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { projects } from "@/content/projects/projects";
 import Chip from "@/components/Chip";
+import Link from "next/link";
+import Button from "@/components/Button";
 
 export default function CaseStudyPage({
   params,
@@ -15,7 +17,7 @@ export default function CaseStudyPage({
     .map((s) => ({ id: s.id, label: s.title }));
 
   return (
-    <div className="flex gap-6">
+    <div className="flex flex-col gap-6">
       <article className="flex-1">
         <h1 className="text-3xl font-bold">{project.title}</h1>
         <div className="mt-1 text-sm text-[--muted]">
@@ -58,6 +60,9 @@ export default function CaseStudyPage({
           ))}
         </div>
       </article>
+      <Link href="/projects">
+        <Button variant="primary">Back to Projects</Button>
+      </Link>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export type Project = {
   slug: string;
   title: string;
   impactLine: string;
-  url: string;
+  url: `/${string}` | `https://${string}` | `http://${string}` | "";
   tags: string[];
   timeframe: string;
   role: string;

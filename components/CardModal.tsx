@@ -2,6 +2,9 @@ import { Project } from "@/content/projects/projects";
 import React, { useEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
 import Chip from "./Chip";
+import Link from "next/link";
+import { Route } from "next";
+import Button from "./Button";
 
 type CardModalProps = {
   isOpen: boolean;
@@ -129,7 +132,7 @@ export default function CardModal({
 
           {/* Description */}
           <div id="modal-description" className="prose prose-sm max-w-none">
-            <ul className="list-disc pl-6 pr-4 text-[--text] leading-relaxed whitespace-pre-wrap">
+            <ul className="list-disc mb-6 pl-6 pr-4 text-[--text] leading-relaxed whitespace-pre-wrap">
               {project.sections &&
                 project.sections[0].items &&
                 project.sections[0].items.map((item, index) => (
@@ -137,6 +140,17 @@ export default function CardModal({
                 ))}
             </ul>
           </div>
+
+          {project.url && (
+            <Link
+              href={project.url as Route}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Button variant="secondary">Source code</Button>
+            </Link>
+          )}
 
           {/* Additional content (like Read More button) */}
           {children && (

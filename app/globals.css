@@ -76,6 +76,10 @@ body {
   border-radius: 10px;
 }
 
+.vertical-timeline-element--work:hover {
+  transform: translateY(-5px);
+}
+
 /* “current role” variant */
 .timeline-card--current {
   background: linear-gradient(

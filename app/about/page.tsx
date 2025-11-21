@@ -50,7 +50,6 @@ export default function AboutPage() {
 
   return (
     <div className="space-y-6">
-      <SectionHeader title="Work Experience & Education" position="center" />
       <Timeline />
 
       <SectionHeader title="Skills" />

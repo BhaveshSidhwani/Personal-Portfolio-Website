@@ -17,18 +17,22 @@ export default function Timeline() {
           className="vertical-timeline-element--work"
           date={item.duration}
           icon={item.type === ElementType.Work ? <MdWork /> : <MdSchool />}
-          position={item.type === ElementType.Work ? "left" : "right"}
+          position={item.type === ElementType.Work ? "right" : "left"}
           visible={true}
           contentStyle={{
-            background: "var(--accent-500)",
+            background: "var(--bg)",
             color: "var(--muted)",
+            border: "2px solid var(--accent-500)",
+            boxShadow: "none",
           }}
           contentArrowStyle={{
-            borderRight: "7px solid var(--accent-500)",
+            borderRight: "10px solid var(--accent-500)",
           }}
           iconStyle={{
-            background: "var(--accent-500)",
+            background: "var(--bg)",
             color: "var(--on-accent)",
+            border: "2px solid var(--accent-500)",
+            boxShadow: "none",
           }}
         >
           <h3 className="vertical-timeline-element-title text-white">

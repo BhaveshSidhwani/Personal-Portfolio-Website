@@ -28,7 +28,7 @@ export default function Card({ project, children }: Props) {
   return (
     <>
       <article
-        className="flex flex-col rounded-lg border border-[--border] bg-[--panel] p-5 shadow-z1 hover-elevate cursor-pointer transition-all duration-200 hover:shadow-lg focus:ring"
+        className="flex flex-col rounded-lg border border-[--accent-500] bg-[--panel] p-5 shadow-z1 hover-elevate cursor-pointer transition-all duration-200 hover:shadow-lg focus:ring"
         onClick={openModal}
         onKeyDown={handleKeyDown}
         tabIndex={0}
@@ -42,7 +42,12 @@ export default function Card({ project, children }: Props) {
             {project.impactLine}
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
-            {project.tags && project.tags.map((t) => <Chip key={t}>{t}</Chip>)}
+            {project.tags &&
+              project.tags.map((t) => (
+                <Chip key={t} variant="neutral_outline">
+                  {t}
+                </Chip>
+              ))}
           </div>
         </div>
         {project.url && (

@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React from "react";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
-  variant?: "neutral" | "accent" | "outline";
+  variant?: "neutral" | "neutral_outline" | "accent" | "outline";
 };
 
 export default function Chip({
@@ -16,6 +16,7 @@ export default function Chip({
     neutral: "border border-[--border] bg-[--panel-chip] text-black",
     accent: "bg-[--accent-500] text-white",
     outline: "border border-[--accent-500] text-[--text]",
+    neutral_outline: "border border-[--panel-chip] text-[--text]",
   } as const;
   return (
     <div className={clsx(base, variants[variant], className)} {...props}>

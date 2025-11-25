@@ -1,65 +1,40 @@
+import Chip from "@/components/Chip";
 import SectionHeader from "@/components/SectionHeader";
 import Timeline from "@/components/Timeline";
+import { skills } from "@/content/skills/skills";
 
 export default function AboutPage() {
-  const skills = {
-    Languages: [
-      "Go",
-      "Python",
-      "Java",
-      "C/C++",
-      "JavaScript",
-      "TypeScript",
-      "SQL",
-      "PHP",
-      "HTML/CSS",
-    ],
-    "Frameworks & Libraries": [
-      "Node",
-      "Express",
-      "Next",
-      "React",
-      "Spring Boot",
-      "Keras",
-      "PyTorch",
-      "TensorFlow",
-      "Flask",
-      "Django",
-    ],
-    "Data & AI": [
-      "RAG",
-      "LLM",
-      "OpenAI",
-      "AzureAI",
-      "Llama",
-      "Gemini",
-      "Vector database",
-      "GraphDB",
-    ],
-    "DevOps & Cloud": [
-      "Docker",
-      "Git",
-      "AWS",
-      "GCP",
-      "Azure",
-      "Firebase",
-      "Kubernetes",
-    ],
-    Databases: ["MySQL", "PostgreSQL", "MongoDB"],
-  };
-
   return (
     <div className="space-y-6">
       <Timeline />
 
       <SectionHeader title="Skills" />
-      <ul className="text-[--muted]">
-        {Object.entries(skills).map(([category, items], i) => (
-          <li key={i} className="py-1">
-            <strong>{category}:</strong> {items.join(", ")}
-          </li>
+      <div className="space-y-6">
+        {skills.map((category) => (
+          <div key={category.title} className="space-y-3">
+            <h3 className="text-sm font-semibold text-[--foreground] uppercase tracking-wide">
+              {category.title}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {category.items.map((item, index) => (
+                <Chip
+                  key={index}
+                  className="transition-transform hover:scale-105"
+                >
+                  {item.icon && (
+                    <img
+                      src={item.icon}
+                      alt={item.label}
+                      className="h-[1.5em] w-[1.5em]"
+                    />
+                  )}
+                  <span className="ml-2">{item.label}</span>
+                </Chip>
+              ))}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

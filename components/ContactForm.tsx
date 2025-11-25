@@ -162,11 +162,31 @@ export default function ContactForm() {
     setErrors({});
     setStatus("loading");
 
+    // Prepare payload with trimmed and normalized values
+    const payload = {
+      name: values.name.trim(),
+      email: values.email.trim().toLowerCase(),
+      message: values.message.trim(),
+    };
+
     try {
-      // TEMPORARY: Mock success for testing
-      // Remove this and uncomment one of the options above
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const res = { ok: true, status: 200 };
+      // Using EmailJS - Free up to 200 emails/month
+      const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+          template_id: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+          user_id: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+          template_params: {
+            name: payload.name,
+            email: payload.email,
+            message: payload.message,
+          },
+        }),
+      });
 
       setStatusCode(res.status);
 

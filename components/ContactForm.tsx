@@ -1,18 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Button from "./Button";
-
-interface ValidationErrors {
-  name?: string;
-  email?: string;
-  message?: string;
-}
-
-interface FormValues {
-  name: string;
-  email: string;
-  message: string;
-}
+import { FormValues, ValidationErrors } from "@/lib/contact/types";
+import { validateForm, validateField } from "@/lib/contact/validation";
+import { validateAndSanitizeForm } from "@/lib/contact/sanitization";
+import { checkRateLimit, getCurrentTimestamp } from "@/lib/contact/rateLimit";
+import { IoWarning } from "react-icons/io5";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<
@@ -28,90 +21,16 @@ export default function ContactForm() {
     message: "",
   });
 
-  // Validation functions
-  const validateName = (rawName: string): string | undefined => {
-    const name = rawName.trim();
-    if (!name) {
-      return "Name is required";
-    }
-    if (name.length < 2) {
-      return "Name must be at least 2 characters";
-    }
-    if (name.length > 100) {
-      return "Name must be less than 100 characters";
-    }
-    // Check for valid characters (letters, spaces, hyphens, apostrophes)
-    if (!/^[a-zA-Z\s'-]+$/.test(name)) {
-      return "Name contains invalid characters";
-    }
-    return undefined;
-  };
-
-  const validateEmail = (rawEmail: string): string | undefined => {
-    const email = rawEmail.trim();
-    if (!email) {
-      return "Email is required";
-    }
-    // comprehensive email regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return "Please enter a valid email address";
-    }
-    if (email.length > 254) {
-      return "Email is too long";
-    }
-    return undefined;
-  };
-
-  const validateMessage = (rawMessage: string): string | undefined => {
-    const message = rawMessage.trim();
-    if (!message) {
-      return "Message is required";
-    }
-    if (message.length < 10) {
-      return "Message must be at least 10 characters";
-    }
-    if (message.length > 5000) {
-      return "Message must be less than 5000 characters";
-    }
-    return undefined;
-  };
-
-  // Validate all fields
-  const validateForm = (): { isValid: boolean; errors: ValidationErrors } => {
-    const newErrors: ValidationErrors = {};
-
-    const nameError = validateName(values.name);
-    const emailError = validateEmail(values.email);
-    const messageError = validateMessage(values.message);
-
-    if (nameError) newErrors.name = nameError;
-    if (emailError) newErrors.email = emailError;
-    if (messageError) newErrors.message = messageError;
-
-    return {
-      isValid: Object.keys(newErrors).length === 0,
-      errors: newErrors,
-    };
-  };
+  // Rate limiting state
+  const [submissionTimestamps, setSubmissionTimestamps] = useState<number[]>(
+    []
+  );
+  const [rateLimitedUnitl, setRateLimitedUntil] = useState<number | null>(null);
 
   // handleBlur: Validates field when user leaves it (clicks away)
   // This provides immediate feedback without being annoying like onChange validation
   const handleBlur = (field: keyof FormValues) => {
-    let error: string | undefined;
-
-    switch (field) {
-      case "name":
-        error = validateName(values.name);
-        break;
-      case "email":
-        error = validateEmail(values.email);
-        break;
-      case "message":
-        error = validateMessage(values.message);
-        break;
-    }
-
+    const error = validateField(field, values[field]);
     setErrors((prev) => ({
       ...prev,
       [field]: error,
@@ -146,8 +65,24 @@ export default function ContactForm() {
       return;
     }
 
+    // Check rate limit
+    const rateLimitCheck = checkRateLimit(
+      submissionTimestamps,
+      rateLimitedUnitl
+    );
+    if (!rateLimitCheck.allowed) {
+      setErrors({
+        security: `You have reached the submission limit. Please wait ${
+          rateLimitCheck.waitTime
+        } minute${
+          rateLimitCheck.waitTime !== 1 ? "s" : ""
+        } before trying again.`,
+      });
+      return;
+    }
+
     // Validate form
-    const { isValid, errors: validationErrors } = validateForm();
+    const { isValid, errors: validationErrors } = validateForm(values);
 
     if (!isValid) {
       setErrors(validationErrors);
@@ -158,15 +93,24 @@ export default function ContactForm() {
       return;
     }
 
+    // Sanitize form data
+    const { data: sanitizedData, error: securityError } =
+      validateAndSanitizeForm(values);
+
+    if (securityError) {
+      setErrors({ security: securityError });
+      return;
+    }
+
     // Clear any existing errors
     setErrors({});
     setStatus("loading");
 
     // Prepare payload with trimmed and normalized values
     const payload = {
-      name: values.name.trim(),
-      email: values.email.trim().toLowerCase(),
-      message: values.message.trim(),
+      name: sanitizedData.name.trim(),
+      email: sanitizedData.email.trim().toLowerCase(),
+      message: sanitizedData.message.trim(),
     };
 
     try {
@@ -192,6 +136,9 @@ export default function ContactForm() {
 
       if (res.ok) {
         setStatus("success");
+        // Record submission timestamp for rate limiting
+        setSubmissionTimestamps((prev) => [...prev, getCurrentTimestamp()]);
+
         // Reset form
         setValues({
           name: "",
@@ -270,6 +217,21 @@ export default function ContactForm() {
       className="rounded-lg border border-[--border] bg-[--panel] p-6 space-y-4"
       noValidate
     >
+      {/* Security Error Display */}
+      {errors.security && (
+        <div className="rounded-lg border border-[--error] bg-[--panel] p-4">
+          <div className="flex items-start">
+            <IoWarning className="w-[1.75em] h-[1.75em] text-[--error] mr-2 flex-shrink-0 mt-2" />
+            <div>
+              <h4 className="text-sm font-semibold text-orange-800">
+                Security Warning
+              </h4>
+              <p className="text-sm text-orange-700 mt-1">{errors.security}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           <label htmlFor="name" className="block text-sm font-medium mb-1">

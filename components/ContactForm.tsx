@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { IoWarning } from "react-icons/io5";
+
 import Button from "./Button";
 import { FormValues, ValidationErrors } from "@/lib/contact/types";
 import { validateForm, validateField } from "@/lib/contact/validation";
 import { validateAndSanitizeForm } from "@/lib/contact/sanitization";
 import { checkRateLimit, getCurrentTimestamp } from "@/lib/contact/rateLimit";
-import { IoWarning } from "react-icons/io5";
+import { detectBot, getFormMountTime } from "@/lib/contact/botDetection";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<
@@ -25,7 +27,14 @@ export default function ContactForm() {
   const [submissionTimestamps, setSubmissionTimestamps] = useState<number[]>(
     []
   );
-  const [rateLimitedUnitl, setRateLimitedUntil] = useState<number | null>(null);
+  const [rateLimitedUntil, setRateLimitedUntil] = useState<number | null>(null);
+
+  // Track form mount time for bot detection
+  const formMountTimeRef = useRef<number>(0);
+  useEffect(() => {
+    // Record when form component mounts
+    formMountTimeRef.current = getFormMountTime();
+  }, []);
 
   // handleBlur: Validates field when user leaves it (clicks away)
   // This provides immediate feedback without being annoying like onChange validation
@@ -59,16 +68,23 @@ export default function ContactForm() {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
 
-    // Honeypot check - silently reject bot submissions
-    if ((formData.get("website") as string)?.length) {
-      setStatus("success");
-      return;
+    // Bot detection - Check honeypot fields and timing
+    const botCheck = detectBot(formData, formMountTimeRef.current, values);
+    if (botCheck.isBot) {
+      // Show error for timing/pattern issues
+      if (botCheck.reason) {
+        setErrors({ security: botCheck.reason });
+        return;
+      } else {
+        setStatus("success");
+        return;
+      }
     }
 
     // Check rate limit
     const rateLimitCheck = checkRateLimit(
       submissionTimestamps,
-      rateLimitedUnitl
+      rateLimitedUntil
     );
     if (!rateLimitCheck.allowed) {
       setErrors({
@@ -333,14 +349,35 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {/* Honeypot field - hidden from real users */}
+      {/* Honeypot fields - hidden from real users */}
       <input
         type="text"
         name="website"
-        className="hidden"
+        className="absolute opacity-0 pointer-events-none"
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
+        style={{ position: "absolute", left: "-9999" }}
+      />
+
+      <input
+        type="tel"
+        name="phone"
+        className="absolute opacity-0 pointer-events-none"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999" }}
+      />
+
+      <input
+        type="url"
+        name="linkedin"
+        className="absolute opacity-0 pointer-events-none"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999" }}
       />
 
       <Button disabled={status === "loading"}>

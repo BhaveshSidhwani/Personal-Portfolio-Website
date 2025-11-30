@@ -5,9 +5,7 @@ import { IoWarning } from "react-icons/io5";
 import Button from "./Button";
 import { FormValues, ValidationErrors } from "@/lib/contact/types";
 import { validateForm, validateField } from "@/lib/contact/validation";
-import { validateAndSanitizeForm } from "@/lib/contact/sanitization";
-import { checkRateLimit, getCurrentTimestamp } from "@/lib/contact/rateLimit";
-import { detectBot, getFormMountTime } from "@/lib/contact/botDetection";
+import { getFormMountTime } from "@/lib/contact/botDetection";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<
@@ -22,12 +20,6 @@ export default function ContactForm() {
     email: "",
     message: "",
   });
-
-  // Rate limiting state
-  const [submissionTimestamps, setSubmissionTimestamps] = useState<number[]>(
-    []
-  );
-  const [rateLimitedUntil, setRateLimitedUntil] = useState<number | null>(null);
 
   // Track form mount time for bot detection
   const formMountTimeRef = useRef<number>(0);
@@ -68,36 +60,7 @@ export default function ContactForm() {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
 
-    // Bot detection - Check honeypot fields and timing
-    const botCheck = detectBot(formData, formMountTimeRef.current, values);
-    if (botCheck.isBot) {
-      // Show error for timing/pattern issues
-      if (botCheck.reason) {
-        setErrors({ security: botCheck.reason });
-        return;
-      } else {
-        setStatus("success");
-        return;
-      }
-    }
-
-    // Check rate limit
-    const rateLimitCheck = checkRateLimit(
-      submissionTimestamps,
-      rateLimitedUntil
-    );
-    if (!rateLimitCheck.allowed) {
-      setErrors({
-        security: `You have reached the submission limit. Please wait ${
-          rateLimitCheck.waitTime
-        } minute${
-          rateLimitCheck.waitTime !== 1 ? "s" : ""
-        } before trying again.`,
-      });
-      return;
-    }
-
-    // Validate form
+    // Validate form client-side
     const { isValid, errors: validationErrors } = validateForm(values);
 
     if (!isValid) {
@@ -109,51 +72,36 @@ export default function ContactForm() {
       return;
     }
 
-    // Sanitize form data
-    const { data: sanitizedData, error: securityError } =
-      validateAndSanitizeForm(values);
-
-    if (securityError) {
-      setErrors({ security: securityError });
-      return;
-    }
-
     // Clear any existing errors
     setErrors({});
     setStatus("loading");
 
     // Prepare payload with trimmed and normalized values
     const payload = {
-      name: sanitizedData.name.trim(),
-      email: sanitizedData.email.trim().toLowerCase(),
-      message: sanitizedData.message.trim(),
+      name: values.name.trim(),
+      email: values.email.trim().toLowerCase(),
+      message: values.message.trim(),
+      website: formData.get("website") as string,
+      phone: formData.get("phone") as string,
+      linkedin: formData.get("linkedin") as string,
+      formMountTimeRef: formMountTimeRef.current,
     };
 
     try {
       // Using EmailJS - Free up to 200 emails/month
-      const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          service_id: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-          template_id: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-          user_id: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-          template_params: {
-            name: payload.name,
-            email: payload.email,
-            message: payload.message,
-          },
-        }),
+        body: JSON.stringify(payload),
       });
 
+      const data = await res.json();
       setStatusCode(res.status);
 
       if (res.ok) {
         setStatus("success");
-        // Record submission timestamp for rate limiting
-        setSubmissionTimestamps((prev) => [...prev, getCurrentTimestamp()]);
 
         // Reset form
         setValues({
@@ -163,9 +111,17 @@ export default function ContactForm() {
         });
       } else {
         setStatus("error");
+        // Handle specific error types
+        if (data.errors) {
+          // Validation errors from server
+          setErrors(data.errors);
+        } else if (data.error) {
+          // Security errors
+          setErrors({ security: data.error });
+        }
       }
     } catch (error) {
-      console.error("Email sending error:", error);
+      console.error("Contact form submission error:", error);
       setStatus("error");
       setStatusCode(null);
     }
